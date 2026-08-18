@@ -1,0 +1,6 @@
+pydantic<3,>=2.7
+PyYAML<7,>=6.0
+openai>=1.0
+
+[dev]
+pytest<9,>=8

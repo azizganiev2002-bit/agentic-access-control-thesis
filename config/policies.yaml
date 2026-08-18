@@ -1,0 +1,31 @@
+policies:
+  P1:
+    name: Expired temporary access
+    description: Temporary access must be removed after its approved expiry date unless a valid extension exists.
+    expected_action: REMOVE_TEMP_ACCESS
+    action_impact: low
+  P2:
+    name: Obsolete project access
+    description: Project-specific access must be removed when the project assignment ends unless an approved exception or continuing dependency exists.
+    expected_action: REMOVE_PROJECT_ACCESS
+    action_impact: low
+  P3:
+    name: Inappropriate privileged access
+    description: Privileged access must be justified by role or an approved exception.
+    expected_action: REMOVE_PRIVILEGED_ACCESS
+    action_impact: high
+  P4:
+    name: Enabled terminated account
+    description: Accounts belonging to terminated identities must be disabled unless an approved post-termination exception exists.
+    expected_action: DISABLE_ACCOUNT
+    action_impact: high
+  P5:
+    name: Inactive account
+    description: Enabled identities exceeding the inactivity threshold are flagged for review; remediation depends on identity type, operational context, and approved exceptions.
+    expected_action: DISABLE_ACCOUNT
+    action_impact: high
+  P6:
+    name: Segregation-of-duties conflict
+    description: A user must not hold both requester and approver roles for the same process unless an approved exception exists.
+    expected_action: REMOVE_SOD_ROLE
+    action_impact: high

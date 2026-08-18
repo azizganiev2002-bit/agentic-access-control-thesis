@@ -1,0 +1,2 @@
+[console_scripts]
+ace = access_control_experiment.cli:main

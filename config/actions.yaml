@@ -1,0 +1,25 @@
+actions:
+  NO_ACTION:
+    impact: none
+    mutable: false
+    allowed_for_policies: [P1, P2, P3, P4, P5, P6]
+  REMOVE_TEMP_ACCESS:
+    impact: low
+    mutable: true
+    allowed_for_policies: [P1]
+  REMOVE_PROJECT_ACCESS:
+    impact: low
+    mutable: true
+    allowed_for_policies: [P2]
+  REMOVE_PRIVILEGED_ACCESS:
+    impact: high
+    mutable: true
+    allowed_for_policies: [P3]
+  DISABLE_ACCOUNT:
+    impact: high
+    mutable: true
+    allowed_for_policies: [P4, P5]
+  REMOVE_SOD_ROLE:
+    impact: high
+    mutable: true
+    allowed_for_policies: [P6]
