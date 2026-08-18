@@ -1,7 +1,0 @@
-as_of_date: "2026-08-18"
-repetitions: 5
-random_seed: 42
-human_review_delay_seconds: 12.0
-manual_remediation_delay_seconds: 8.0
-observation_timeout_seconds: 120.0
-mock_error_rate: 0.15

@@ -8,3 +8,7 @@ outputs/*
 .DS_Store
 .vscode/
 .idea/
+
+outputs/
+
+outputs/

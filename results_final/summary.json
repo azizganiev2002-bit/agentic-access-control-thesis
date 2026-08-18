@@ -1,0 +1,26 @@
+{
+  "A1": {
+    "runs": 90,
+    "median_ttr_seconds": 20.00000520001049,
+    "RSR": 1.0,
+    "HIR": 1.0,
+    "IRR": 0.0,
+    "CS_distribution": {}
+  },
+  "A2": {
+    "runs": 90,
+    "median_ttr_seconds": 18.510326499992516,
+    "RSR": 1.0,
+    "HIR": 1.0,
+    "IRR": 0.0,
+    "CS_distribution": {}
+  },
+  "A3": {
+    "runs": 90,
+    "median_ttr_seconds": 19.346436749969143,
+    "RSR": 1.0,
+    "HIR": 0.8333333333333334,
+    "IRR": 0.0,
+    "CS_distribution": {}
+  }
+}
