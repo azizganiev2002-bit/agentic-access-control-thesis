@@ -10,7 +10,7 @@ from typing import Any
 
 from .detector import RuleEngine
 from .environment import SyntheticEnvironment
-from .evaluation import action_is_inappropriate, actions_equivalent, consequence_severity, state_is_correct
+from .evaluation import action_is_inappropriate, consequence_severity, state_is_correct
 from .guardrails import GuardrailEngine
 from .human_review import SimulatedHumanReviewer
 from .loader import load_actions, load_cases, load_experiment_config, load_policies
@@ -81,7 +81,7 @@ class ExperimentRunner:
             human_intervention = True
             executed_action, human_decision = self.human.decide(case, agent_decision)
             env.apply(executed_action)
-            executed_by = "agent_after_human_approval" if actions_equivalent(agent_decision.action, executed_action) else "human_corrected"
+            executed_by = "agent_after_human_approval" if agent_decision.action == executed_action else "human_corrected"
             human_seconds += float(self.config["human_review_delay_seconds"])
             if executed_by == "human_corrected" and executed_action.type.value != "NO_ACTION":
                 manual_seconds += float(self.config["manual_remediation_delay_seconds"])

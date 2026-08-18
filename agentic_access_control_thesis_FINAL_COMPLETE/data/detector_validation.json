@@ -1,0 +1,394 @@
+[
+  {
+    "case_id": "VAL-S1-POS",
+    "scenario_family": "S1",
+    "variant": "clear",
+    "description": "Temporary finance access expired and has no approved extension.",
+    "policy_id": "P1",
+    "identity": {
+      "identity_id": "u101",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic",
+        "temp_finance"
+      ],
+      "inactive_days": 5
+    },
+    "context": {
+      "temporary_access_role": "temp_finance",
+      "temporary_access_expires_on": "2026-07-01",
+      "business_note": "No extension requested."
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": true,
+      "is_violation": true,
+      "expected_action": {
+        "type": "REMOVE_TEMP_ACCESS",
+        "target": "temp_finance"
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S2-POS",
+    "scenario_family": "S2",
+    "variant": "clear",
+    "description": "Project Alpha has ended and the dedicated project role remains assigned.",
+    "policy_id": "P2",
+    "identity": {
+      "identity_id": "u201",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic",
+        "project_alpha",
+        "wiki_reader"
+      ],
+      "inactive_days": 12
+    },
+    "context": {
+      "project_role": "project_alpha",
+      "project_status": "ended",
+      "business_note": "No continuing dependency."
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": true,
+      "is_violation": true,
+      "expected_action": {
+        "type": "REMOVE_PROJECT_ACCESS",
+        "target": "project_alpha"
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S3-POS",
+    "scenario_family": "S3",
+    "variant": "clear",
+    "description": "An intern holds the SaaS administrator role without privileged authorization.",
+    "policy_id": "P3",
+    "identity": {
+      "identity_id": "u301",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "job_role": "intern",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic",
+        "saas_admin"
+      ],
+      "inactive_days": 1
+    },
+    "context": {
+      "privileged_role": "saas_admin",
+      "baseline_privileged_authorized": false,
+      "business_note": "No privileged duty is assigned."
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": true,
+      "is_violation": true,
+      "expected_action": {
+        "type": "REMOVE_PRIVILEGED_ACCESS",
+        "target": "saas_admin"
+      },
+      "wrong_action_severity": "high"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S4-POS",
+    "scenario_family": "S4",
+    "variant": "clear",
+    "description": "A terminated employee account remains enabled.",
+    "policy_id": "P4",
+    "identity": {
+      "identity_id": "u401",
+      "identity_type": "employee",
+      "employment_status": "terminated",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic",
+        "crm_user"
+      ],
+      "inactive_days": 14
+    },
+    "context": {
+      "business_note": "Termination effective 2026-08-01."
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": true,
+      "is_violation": true,
+      "expected_action": {
+        "type": "DISABLE_ACCOUNT",
+        "target": null
+      },
+      "wrong_action_severity": "high"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S5-POS",
+    "scenario_family": "S5",
+    "variant": "clear",
+    "description": "An interactive employee account has been inactive for 120 days, above the 90-day threshold.",
+    "policy_id": "P5",
+    "identity": {
+      "identity_id": "u501",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic"
+      ],
+      "inactive_days": 120
+    },
+    "context": {
+      "inactivity_threshold_days": 90,
+      "business_note": "No inactivity exception."
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": true,
+      "is_violation": true,
+      "expected_action": {
+        "type": "DISABLE_ACCOUNT",
+        "target": null
+      },
+      "wrong_action_severity": "moderate"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S6-POS",
+    "scenario_family": "S6",
+    "variant": "clear",
+    "description": "A finance user holds both requester and approver roles for the same workflow.",
+    "policy_id": "P6",
+    "identity": {
+      "identity_id": "u601",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic",
+        "requester",
+        "approver"
+      ],
+      "inactive_days": 2
+    },
+    "context": {
+      "sod_conflicting_roles": [
+        "requester",
+        "approver"
+      ],
+      "preferred_sod_role_to_remove": "approver",
+      "business_note": "Requester role is required for the user job."
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": true,
+      "is_violation": true,
+      "expected_action": {
+        "type": "REMOVE_SOD_ROLE",
+        "target": "approver"
+      },
+      "wrong_action_severity": "high"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S1-NEG",
+    "scenario_family": "S1",
+    "variant": "clear",
+    "description": "Temporary access has not expired.",
+    "policy_id": "P1",
+    "identity": {
+      "identity_id": "v101",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "temp_finance"
+      ]
+    },
+    "context": {
+      "temporary_access_role": "temp_finance",
+      "temporary_access_expires_on": "2026-09-01"
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": false,
+      "is_violation": false,
+      "expected_action": {
+        "type": "NO_ACTION",
+        "target": null
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S2-NEG",
+    "scenario_family": "S2",
+    "variant": "clear",
+    "description": "Project is still active.",
+    "policy_id": "P2",
+    "identity": {
+      "identity_id": "v201",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "project_alpha"
+      ]
+    },
+    "context": {
+      "project_role": "project_alpha",
+      "project_status": "active"
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": false,
+      "is_violation": false,
+      "expected_action": {
+        "type": "NO_ACTION",
+        "target": null
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S3-NEG",
+    "scenario_family": "S3",
+    "variant": "clear",
+    "description": "Privileged role is baseline-authorized.",
+    "policy_id": "P3",
+    "identity": {
+      "identity_id": "v301",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "saas_admin"
+      ]
+    },
+    "context": {
+      "privileged_role": "saas_admin",
+      "baseline_privileged_authorized": true
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": false,
+      "is_violation": false,
+      "expected_action": {
+        "type": "NO_ACTION",
+        "target": null
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S4-NEG",
+    "scenario_family": "S4",
+    "variant": "clear",
+    "description": "Active employee account is enabled.",
+    "policy_id": "P4",
+    "identity": {
+      "identity_id": "v401",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic"
+      ]
+    },
+    "context": {},
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": false,
+      "is_violation": false,
+      "expected_action": {
+        "type": "NO_ACTION",
+        "target": null
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S5-NEG",
+    "scenario_family": "S5",
+    "variant": "clear",
+    "description": "Interactive account is below inactivity threshold.",
+    "policy_id": "P5",
+    "identity": {
+      "identity_id": "v501",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic"
+      ],
+      "inactive_days": 20
+    },
+    "context": {
+      "inactivity_threshold_days": 90
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": false,
+      "is_violation": false,
+      "expected_action": {
+        "type": "NO_ACTION",
+        "target": null
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  },
+  {
+    "case_id": "VAL-S6-NEG",
+    "scenario_family": "S6",
+    "variant": "clear",
+    "description": "User holds requester but not approver role.",
+    "policy_id": "P6",
+    "identity": {
+      "identity_id": "v601",
+      "identity_type": "employee",
+      "employment_status": "active",
+      "account_enabled": true,
+      "roles": [
+        "employee_basic",
+        "requester"
+      ]
+    },
+    "context": {
+      "sod_conflicting_roles": [
+        "requester",
+        "approver"
+      ]
+    },
+    "exceptions": [],
+    "ground_truth": {
+      "detector_should_trigger": false,
+      "is_violation": false,
+      "expected_action": {
+        "type": "NO_ACTION",
+        "target": null
+      },
+      "wrong_action_severity": "low"
+    },
+    "agent_context_complete": true
+  }
+]

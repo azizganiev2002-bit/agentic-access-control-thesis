@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from .evaluation import actions_equivalent
 from .models import Action, AgentDecision, Case
 
 
@@ -12,7 +11,7 @@ class SimulatedHumanReviewer:
         if recommendation is None:
             return expected, "human_resolved_from_ground_truth"
 
-        if actions_equivalent(recommendation.action, expected):
+        if recommendation.action == expected:
             return recommendation.action, "approved_agent_recommendation"
 
         return expected, "rejected_agent_recommendation_and_applied_ground_truth"

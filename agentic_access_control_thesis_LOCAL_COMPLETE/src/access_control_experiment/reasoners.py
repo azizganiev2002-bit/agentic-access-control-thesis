@@ -44,7 +44,7 @@ class MockReasoner(Reasoner):
                 rationale="A valid exception applies; no remediation is recommended.",
             )
 
-        expected_type = ActionType(policy["default_remediation"])
+        expected_type = ActionType(policy["expected_action"])
         target = _policy_target(case, expected_type)
         decision = AgentDecision(
             action=Action(type=expected_type, target=target),
@@ -96,8 +96,7 @@ class OpenAIReasoner(Reasoner):
             "You are a constrained access-control remediation agent in a research experiment. "
             "The deterministic detector has already triggered, but a trigger is not proof that remediation is appropriate. "
             "Inspect the supplied identity context and valid exceptions. Recommend exactly one allowed action. "
-            "The exceptions[].valid boolean is authoritative and has already been evaluated for the experimental date; "
-            "do not recalculate exception validity from dates. If a valid exception means no change should occur, choose NO_ACTION. "
+            "If a valid exception means no change should occur, choose NO_ACTION. "
             "If context is insufficient or ambiguous, set needs_human_review=true and choose NO_ACTION. "
             "Never invent identities, roles, exceptions, or evidence. Do not produce a confidence score."
         )
@@ -135,8 +134,7 @@ class OllamaReasoner(Reasoner):
             "You are a constrained access-control remediation agent in a research experiment. "
             "The deterministic detector has already triggered, but a trigger is not proof that remediation is appropriate. "
             "Inspect the supplied identity context and valid exceptions. Recommend exactly one allowed action. "
-            "The exceptions[].valid boolean is authoritative and has already been evaluated for the experimental date; "
-            "do not recalculate exception validity from dates. If a valid exception means no change should occur, choose NO_ACTION. "
+            "If a valid exception means no change should occur, choose NO_ACTION. "
             "If context is insufficient or ambiguous, set needs_human_review=true and choose NO_ACTION. "
             "Never invent identities, roles, exceptions, or evidence. Do not produce a confidence score."
         )
